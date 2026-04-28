@@ -1,0 +1,1307 @@
+{
+  "type": "object",
+  "required": ["protocols"],
+  "properties": {
+    "protocols": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "required": [
+          "document_id",
+          "document_type",
+          "created_at",
+          "ich_m11_context",
+          "source_data",
+          "title_page",
+          "amendment_details",
+          "protocol_sections",
+          "appendices",
+          "abbreviations",
+          "references",
+          "review_package",
+          "pdf_rendering"
+        ],
+        "properties": {
+          "document_id": {
+            "type": "string"
+          },
+          "document_type": {
+            "type": "string",
+            "enum": [
+              "ICH M11 Clinical Trial Protocol Draft",
+              "ICH M11 Protocol Synopsis Draft",
+              "ICH M11 Protocol Section Draft"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+
+          "ich_m11_context": {
+            "type": "object",
+            "required": [
+              "standard_name",
+              "template_name",
+              "template_version",
+              "implementation_note",
+              "finalisation_note"
+            ],
+            "properties": {
+              "standard_name": {
+                "type": "string",
+                "enum": [
+                  "ICH M11 Clinical Electronic Structured Harmonised Protocol"
+                ]
+              },
+              "template_name": {
+                "type": "string",
+                "enum": [
+                  "Interventional Clinical Trial Protocol Template"
+                ]
+              },
+              "template_version": {
+                "type": "string"
+              },
+              "implementation_note": {
+                "type": "string"
+              },
+              "finalisation_note": {
+                "type": "string"
+              }
+            }
+          },
+
+          "source_data": {
+            "type": "object",
+            "required": [
+              "primary_source_domain",
+              "source_table_name",
+              "record_count",
+              "source_records"
+            ],
+            "properties": {
+              "primary_source_domain": {
+                "type": "string",
+                "enum": [
+                  "SDTM TS",
+                  "SDTM TA",
+                  "SDTM TE",
+                  "SDTM TV",
+                  "SDTM TI",
+                  "Sponsor Metadata",
+                  "Protocol Source",
+                  "Mixed Sources"
+                ]
+              },
+              "source_table_name": {
+                "type": ["string", "null"]
+              },
+              "record_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "source_records": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/source_record"
+                }
+              }
+            }
+          },
+
+          "title_page": {
+            "type": "object",
+            "required": [
+              "sponsor_confidentiality_statement",
+              "full_title",
+              "trial_acronym",
+              "sponsor_protocol_identifier",
+              "original_protocol_indicator",
+              "version_number",
+              "version_date",
+              "amendment_identifier",
+              "amendment_scope",
+              "investigational_product_codes",
+              "investigational_product_names",
+              "trial_phase",
+              "short_title",
+              "sponsor",
+              "co_sponsors",
+              "local_sponsors",
+              "device_manufacturers",
+              "regulatory_or_clinical_trial_identifiers",
+              "sponsor_approval",
+              "sponsor_signatory",
+              "medical_expert_contact"
+            ],
+            "properties": {
+              "sponsor_confidentiality_statement": {
+                "$ref": "#/$defs/protocol_field"
+              },
+              "full_title": {
+                "$ref": "#/$defs/protocol_field"
+              },
+              "trial_acronym": {
+                "$ref": "#/$defs/protocol_field"
+              },
+              "sponsor_protocol_identifier": {
+                "$ref": "#/$defs/protocol_field"
+              },
+              "original_protocol_indicator": {
+                "$ref": "#/$defs/protocol_field"
+              },
+              "version_number": {
+                "$ref": "#/$defs/protocol_field"
+              },
+              "version_date": {
+                "$ref": "#/$defs/protocol_field"
+              },
+              "amendment_identifier": {
+                "$ref": "#/$defs/protocol_field"
+              },
+              "amendment_scope": {
+                "$ref": "#/$defs/protocol_field"
+              },
+              "investigational_product_codes": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/protocol_field"
+                }
+              },
+              "investigational_product_names": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/intervention_name"
+                }
+              },
+              "trial_phase": {
+                "$ref": "#/$defs/protocol_field"
+              },
+              "short_title": {
+                "$ref": "#/$defs/protocol_field"
+              },
+              "sponsor": {
+                "$ref": "#/$defs/organisation"
+              },
+              "co_sponsors": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/organisation"
+                }
+              },
+              "local_sponsors": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/organisation"
+                }
+              },
+              "device_manufacturers": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/organisation"
+                }
+              },
+              "regulatory_or_clinical_trial_identifiers": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/external_identifier"
+                }
+              },
+              "sponsor_approval": {
+                "$ref": "#/$defs/protocol_field"
+              },
+              "sponsor_signatory": {
+                "$ref": "#/$defs/protocol_field"
+              },
+              "medical_expert_contact": {
+                "$ref": "#/$defs/protocol_field"
+              }
+            }
+          },
+
+          "amendment_details": {
+            "type": "object",
+            "required": [
+              "amendment_status",
+              "current_amendment",
+              "overview_of_changes",
+              "prior_protocol_amendments"
+            ],
+            "properties": {
+              "amendment_status": {
+                "type": "string",
+                "enum": [
+                  "Original Protocol",
+                  "First Protocol Amendment",
+                  "Previously Amended Protocol",
+                  "Unknown"
+                ]
+              },
+              "current_amendment": {
+                "type": "object",
+                "required": [
+                  "approximate_enrollment_at_approval",
+                  "primary_reason_for_amendment",
+                  "secondary_reasons_for_amendment",
+                  "amendment_summary",
+                  "substantial_impact_on_safety_or_rights",
+                  "substantial_impact_on_data_reliability"
+                ],
+                "properties": {
+                  "approximate_enrollment_at_approval": {
+                    "$ref": "#/$defs/protocol_field"
+                  },
+                  "primary_reason_for_amendment": {
+                    "$ref": "#/$defs/protocol_field"
+                  },
+                  "secondary_reasons_for_amendment": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/protocol_field"
+                    }
+                  },
+                  "amendment_summary": {
+                    "$ref": "#/$defs/protocol_field"
+                  },
+                  "substantial_impact_on_safety_or_rights": {
+                    "$ref": "#/$defs/yes_no_explanation"
+                  },
+                  "substantial_impact_on_data_reliability": {
+                    "$ref": "#/$defs/yes_no_explanation"
+                  }
+                }
+              },
+              "overview_of_changes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "description_of_change",
+                    "brief_rationale_for_change",
+                    "section_number_and_name"
+                  ],
+                  "properties": {
+                    "description_of_change": {
+                      "type": "string"
+                    },
+                    "brief_rationale_for_change": {
+                      "type": "string"
+                    },
+                    "section_number_and_name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "prior_protocol_amendments": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/protocol_section"
+                }
+              }
+            }
+          },
+
+          "protocol_sections": {
+            "type": "array",
+            "minItems": 14,
+            "items": {
+              "$ref": "#/$defs/protocol_section"
+            }
+          },
+
+          "appendices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/protocol_section"
+            }
+          },
+
+          "abbreviations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["abbreviation", "definition"],
+              "properties": {
+                "abbreviation": {
+                  "type": "string"
+                },
+                "definition": {
+                  "type": "string"
+                },
+                "source_traceability": {
+                  "$ref": "#/$defs/source_traceability"
+                }
+              }
+            }
+          },
+
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "reference_id",
+                "citation_text",
+                "reference_type"
+              ],
+              "properties": {
+                "reference_id": {
+                  "type": "string"
+                },
+                "citation_text": {
+                  "type": "string"
+                },
+                "reference_type": {
+                  "type": "string",
+                  "enum": [
+                    "Journal Article",
+                    "Guideline",
+                    "Investigator Brochure",
+                    "Product Label",
+                    "Regulatory Document",
+                    "Sponsor Document",
+                    "Other"
+                  ]
+                },
+                "url_or_identifier": {
+                  "type": ["string", "null"]
+                }
+              }
+            }
+          },
+
+          "review_package": {
+            "type": "object",
+            "required": [
+              "data_quality_findings",
+              "assumptions",
+              "missing_information",
+              "questions_for_protocol_team",
+              "sections_not_generated"
+            ],
+            "properties": {
+              "data_quality_findings": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/review_finding"
+                }
+              },
+              "assumptions": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/assumption"
+                }
+              },
+              "missing_information": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/missing_information"
+                }
+              },
+              "questions_for_protocol_team": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/protocol_question"
+                }
+              },
+              "sections_not_generated": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/not_generated"
+                }
+              }
+            }
+          },
+
+          "pdf_rendering": {
+            "type": "object",
+            "required": [
+              "include_title_page",
+              "include_table_of_contents",
+              "section_order",
+              "page_breaks",
+              "tables",
+              "figures",
+              "formatting_notes"
+            ],
+            "properties": {
+              "include_title_page": {
+                "type": "boolean"
+              },
+              "include_table_of_contents": {
+                "type": "boolean"
+              },
+              "section_order": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "page_breaks": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["before_section_id"],
+                  "properties": {
+                    "before_section_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "tables": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/renderable_table"
+                }
+              },
+              "figures": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/renderable_figure"
+                }
+              },
+              "formatting_notes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "$defs": {
+    "protocol_section": {
+      "type": "object",
+      "required": [
+        "section_id",
+        "section_number",
+        "section_title",
+        "heading_level",
+        "ich_m11_section_type",
+        "content_status",
+        "structured_content",
+        "narrative_text",
+        "child_sections",
+        "source_traceability",
+        "review_required",
+        "pdf_rendering_hints"
+      ],
+      "properties": {
+        "section_id": {
+          "type": "string"
+        },
+        "section_number": {
+          "type": "string",
+          "examples": [
+            "1",
+            "1.1",
+            "1.1.1",
+            "3.1.1",
+            "12.1",
+            "14"
+          ]
+        },
+        "section_title": {
+          "type": "string"
+        },
+        "heading_level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "ich_m11_section_type": {
+          "type": "string",
+          "enum": [
+            "Universal",
+            "Conditional Universal",
+            "Optional",
+            "Appendix",
+            "Generated Additional Section"
+          ]
+        },
+        "content_status": {
+          "type": "string",
+          "enum": [
+            "Generated",
+            "Partially Generated",
+            "Placeholder Only",
+            "Not Applicable",
+            "Not Generated"
+          ]
+        },
+        "structured_content": {
+          "type": "object",
+          "required": [
+            "fields",
+            "objectives",
+            "estimands",
+            "interventions",
+            "activities",
+            "tables",
+            "figures"
+          ],
+          "properties": {
+            "fields": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/protocol_field"
+              }
+            },
+            "objectives": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/objective"
+              }
+            },
+            "estimands": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/estimand"
+              }
+            },
+            "interventions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/intervention"
+              }
+            },
+            "activities": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/schedule_activity"
+              }
+            },
+            "tables": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/renderable_table"
+              }
+            },
+            "figures": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/renderable_figure"
+              }
+            }
+          }
+        },
+        "narrative_text": {
+          "type": "string"
+        },
+        "child_sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/protocol_section"
+          }
+        },
+        "source_traceability": {
+          "$ref": "#/$defs/source_traceability"
+        },
+        "review_required": {
+          "type": "boolean"
+        },
+        "pdf_rendering_hints": {
+          "type": "object",
+          "required": [
+            "page_break_before",
+            "page_orientation",
+            "include_in_toc"
+          ],
+          "properties": {
+            "page_break_before": {
+              "type": "boolean"
+            },
+            "page_orientation": {
+              "type": "string",
+              "enum": ["Portrait", "Landscape"]
+            },
+            "include_in_toc": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+
+    "protocol_field": {
+      "type": "object",
+      "required": [
+        "field_id",
+        "label",
+        "value",
+        "value_status",
+        "source_traceability",
+        "review_required"
+      ],
+      "properties": {
+        "field_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "type": [
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "array",
+            "object",
+            "null"
+          ]
+        },
+        "value_status": {
+          "$ref": "#/$defs/value_status"
+        },
+        "source_traceability": {
+          "$ref": "#/$defs/source_traceability"
+        },
+        "review_required": {
+          "type": "boolean"
+        }
+      }
+    },
+
+    "objective": {
+      "type": "object",
+      "required": [
+        "objective_id",
+        "objective_type",
+        "description",
+        "associated_endpoint_ids",
+        "associated_estimand_ids",
+        "value_status",
+        "source_traceability",
+        "review_required"
+      ],
+      "properties": {
+        "objective_id": {
+          "type": "string"
+        },
+        "objective_type": {
+          "type": "string",
+          "enum": [
+            "Primary",
+            "Secondary",
+            "Exploratory",
+            "Safety",
+            "Pharmacokinetic",
+            "Pharmacodynamic",
+            "Immunogenicity",
+            "Other",
+            "Unknown"
+          ]
+        },
+        "description": {
+          "type": ["string", "null"]
+        },
+        "associated_endpoint_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "associated_estimand_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "value_status": {
+          "$ref": "#/$defs/value_status"
+        },
+        "source_traceability": {
+          "$ref": "#/$defs/source_traceability"
+        },
+        "review_required": {
+          "type": "boolean"
+        }
+      }
+    },
+
+    "estimand": {
+      "type": "object",
+      "required": [
+        "estimand_id",
+        "linked_objective_id",
+        "population",
+        "treatment",
+        "endpoint",
+        "population_level_summary",
+        "intercurrent_events",
+        "source_traceability",
+        "review_required"
+      ],
+      "properties": {
+        "estimand_id": {
+          "type": "string"
+        },
+        "linked_objective_id": {
+          "type": ["string", "null"]
+        },
+        "population": {
+          "$ref": "#/$defs/protocol_field"
+        },
+        "treatment": {
+          "$ref": "#/$defs/protocol_field"
+        },
+        "endpoint": {
+          "$ref": "#/$defs/protocol_field"
+        },
+        "population_level_summary": {
+          "$ref": "#/$defs/protocol_field"
+        },
+        "intercurrent_events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "event_description",
+              "strategy"
+            ],
+            "properties": {
+              "event_description": {
+                "type": "string"
+              },
+              "strategy": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "source_traceability": {
+          "$ref": "#/$defs/source_traceability"
+        },
+        "review_required": {
+          "type": "boolean"
+        }
+      }
+    },
+
+    "intervention": {
+      "type": "object",
+      "required": [
+        "arm_name",
+        "arm_type",
+        "intervention_name",
+        "intervention_type",
+        "pharmaceutical_dose_form",
+        "dosage_strength",
+        "dosage_level",
+        "route_of_administration",
+        "regimen_or_treatment_period",
+        "use",
+        "imp_nimp_classification",
+        "sourcing",
+        "source_traceability",
+        "review_required"
+      ],
+      "properties": {
+        "arm_name": {
+          "type": ["string", "null"]
+        },
+        "arm_type": {
+          "type": ["string", "null"]
+        },
+        "intervention_name": {
+          "type": ["string", "null"]
+        },
+        "intervention_type": {
+          "type": ["string", "null"]
+        },
+        "pharmaceutical_dose_form": {
+          "type": ["string", "null"]
+        },
+        "dosage_strength": {
+          "type": ["string", "null"]
+        },
+        "dosage_level": {
+          "type": ["string", "null"]
+        },
+        "route_of_administration": {
+          "type": ["string", "null"]
+        },
+        "regimen_or_treatment_period": {
+          "type": ["string", "null"]
+        },
+        "use": {
+          "type": ["string", "null"]
+        },
+        "imp_nimp_classification": {
+          "type": ["string", "null"],
+          "enum": [
+            "IMP",
+            "NIMP",
+            "AxMP",
+            "Not Applicable",
+            "Unknown",
+            null
+          ]
+        },
+        "sourcing": {
+          "type": ["string", "null"]
+        },
+        "source_traceability": {
+          "$ref": "#/$defs/source_traceability"
+        },
+        "review_required": {
+          "type": "boolean"
+        }
+      }
+    },
+
+    "schedule_activity": {
+      "type": "object",
+      "required": [
+        "activity_id",
+        "activity_name",
+        "activity_category",
+        "visit_or_timepoint",
+        "window",
+        "required_flag",
+        "source_traceability"
+      ],
+      "properties": {
+        "activity_id": {
+          "type": "string"
+        },
+        "activity_name": {
+          "type": "string"
+        },
+        "activity_category": {
+          "type": "string",
+          "enum": [
+            "Screening",
+            "Baseline",
+            "Efficacy",
+            "Safety",
+            "PK",
+            "PD",
+            "Biomarker",
+            "Immunogenicity",
+            "Health Economics",
+            "Follow-up",
+            "Other"
+          ]
+        },
+        "visit_or_timepoint": {
+          "type": ["string", "null"]
+        },
+        "window": {
+          "type": ["string", "null"]
+        },
+        "required_flag": {
+          "type": "boolean"
+        },
+        "source_traceability": {
+          "$ref": "#/$defs/source_traceability"
+        }
+      }
+    },
+
+    "intervention_name": {
+      "type": "object",
+      "required": [
+        "sponsor_product_code",
+        "nonproprietary_name",
+        "proprietary_name",
+        "source_traceability"
+      ],
+      "properties": {
+        "sponsor_product_code": {
+          "type": ["string", "null"]
+        },
+        "nonproprietary_name": {
+          "type": ["string", "null"]
+        },
+        "proprietary_name": {
+          "type": ["string", "null"]
+        },
+        "source_traceability": {
+          "$ref": "#/$defs/source_traceability"
+        }
+      }
+    },
+
+    "organisation": {
+      "type": "object",
+      "required": [
+        "name",
+        "legal_address",
+        "role",
+        "source_traceability"
+      ],
+      "properties": {
+        "name": {
+          "type": ["string", "null"]
+        },
+        "legal_address": {
+          "type": ["string", "null"]
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "Sponsor",
+            "Co-Sponsor",
+            "Local Sponsor",
+            "Device Manufacturer",
+            "Other"
+          ]
+        },
+        "source_traceability": {
+          "$ref": "#/$defs/source_traceability"
+        }
+      }
+    },
+
+    "external_identifier": {
+      "type": "object",
+      "required": [
+        "identifier_type",
+        "identifier_value",
+        "source_traceability"
+      ],
+      "properties": {
+        "identifier_type": {
+          "type": "string",
+          "enum": [
+            "EU CT Number",
+            "FDA IND Number",
+            "IDE Number",
+            "jRCT Number",
+            "NCT Number",
+            "NMPA IND Number",
+            "WHO/UTN Number",
+            "Other"
+          ]
+        },
+        "identifier_value": {
+          "type": ["string", "null"]
+        },
+        "source_traceability": {
+          "$ref": "#/$defs/source_traceability"
+        }
+      }
+    },
+
+    "yes_no_explanation": {
+      "type": "object",
+      "required": [
+        "answer",
+        "explanation",
+        "source_traceability",
+        "review_required"
+      ],
+      "properties": {
+        "answer": {
+          "type": ["string", "null"],
+          "enum": ["Yes", "No", "Unknown", null]
+        },
+        "explanation": {
+          "type": ["string", "null"]
+        },
+        "source_traceability": {
+          "$ref": "#/$defs/source_traceability"
+        },
+        "review_required": {
+          "type": "boolean"
+        }
+      }
+    },
+
+    "source_record": {
+      "type": "object",
+      "required": [
+        "source_domain",
+        "source_parameter",
+        "source_value",
+        "record_ref"
+      ],
+      "properties": {
+        "source_domain": {
+          "type": "string"
+        },
+        "source_parameter": {
+          "type": ["string", "null"]
+        },
+        "source_parameter_label": {
+          "type": ["string", "null"]
+        },
+        "source_value": {
+          "type": ["string", "number", "boolean", "null"]
+        },
+        "controlled_terminology_reference": {
+          "type": ["string", "null"]
+        },
+        "record_ref": {
+          "type": "string"
+        }
+      }
+    },
+
+    "source_traceability": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source_record"
+      }
+    },
+
+    "value_status": {
+      "type": "string",
+      "enum": [
+        "Source",
+        "Inferred",
+        "Placeholder",
+        "Missing",
+        "Conflicting",
+        "Not Applicable"
+      ]
+    },
+
+    "renderable_table": {
+      "type": "object",
+      "required": [
+        "table_id",
+        "section_id",
+        "title",
+        "columns",
+        "rows"
+      ],
+      "properties": {
+        "table_id": {
+          "type": "string"
+        },
+        "section_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": [
+                "string",
+                "number",
+                "integer",
+                "boolean",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+
+    "renderable_figure": {
+      "type": "object",
+      "required": [
+        "figure_id",
+        "section_id",
+        "title",
+        "figure_type",
+        "description"
+      ],
+      "properties": {
+        "figure_id": {
+          "type": "string"
+        },
+        "section_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "figure_type": {
+          "type": "string",
+          "enum": [
+            "Trial Schema",
+            "Flow Diagram",
+            "Schedule Diagram",
+            "Other"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "image_uri": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+
+    "review_finding": {
+      "type": "object",
+      "required": [
+        "severity",
+        "finding",
+        "affected_sections",
+        "affected_source_parameters",
+        "recommendation"
+      ],
+      "properties": {
+        "severity": {
+          "type": "string",
+          "enum": ["Info", "Warning", "Critical"]
+        },
+        "finding": {
+          "type": "string"
+        },
+        "affected_sections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "affected_source_parameters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recommendation": {
+          "type": "string"
+        }
+      }
+    },
+
+    "assumption": {
+      "type": "object",
+      "required": [
+        "assumption",
+        "basis",
+        "risk",
+        "requires_confirmation"
+      ],
+      "properties": {
+        "assumption": {
+          "type": "string"
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "Source TS value",
+            "Controlled terminology",
+            "Protocol-writing convention",
+            "Model inference",
+            "Unknown"
+          ]
+        },
+        "risk": {
+          "type": "string",
+          "enum": ["Low", "Medium", "High"]
+        },
+        "requires_confirmation": {
+          "type": "boolean"
+        }
+      }
+    },
+
+    "missing_information": {
+      "type": "object",
+      "required": [
+        "missing_concept",
+        "reason_needed",
+        "recommended_source"
+      ],
+      "properties": {
+        "missing_concept": {
+          "type": "string"
+        },
+        "reason_needed": {
+          "type": "string"
+        },
+        "recommended_source": {
+          "type": "string",
+          "enum": [
+            "SDTM TS",
+            "SDTM TA",
+            "SDTM TE",
+            "SDTM TV",
+            "SDTM TI",
+            "Protocol Synopsis",
+            "Statistical Analysis Plan",
+            "Investigator Brochure",
+            "Sponsor Metadata",
+            "Medical Review",
+            "Statistical Review",
+            "Operational Metadata"
+          ]
+        }
+      }
+    },
+
+    "protocol_question": {
+      "type": "object",
+      "required": [
+        "question_id",
+        "question",
+        "related_section_id",
+        "priority"
+      ],
+      "properties": {
+        "question_id": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        },
+        "related_section_id": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["Low", "Medium", "High"]
+        }
+      }
+    },
+
+    "not_generated": {
+      "type": "object",
+      "required": [
+        "section_id",
+        "section_or_topic",
+        "reason"
+      ],
+      "properties": {
+        "section_id": {
+          "type": "string"
+        },
+        "section_or_topic": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string",
+          "enum": [
+            "Insufficient TS data",
+            "Outside TS scope",
+            "Requires medical judgment",
+            "Requires statistical input",
+            "Requires sponsor policy",
+            "Requires operational metadata",
+            "Not applicable to trial"
+          ]
+        }
+      }
+    }
+  }
+}
