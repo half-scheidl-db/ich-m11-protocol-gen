@@ -24,8 +24,7 @@
       margin-top: 24pt;
       border-bottom: 1px solid #999999;
       padding-bottom: 4pt;
-      page-break-before: always;
-      break-before: page;
+      break-before: avoid-page;
   }
 
   h3 {
@@ -116,6 +115,5 @@
   }
 
   .page-break {
-      page-break-before: always;
       break-before: page;
   }

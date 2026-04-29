@@ -1,4 +1,5 @@
-"""ich_m11_renderer.py
+"""
+ich_m11_renderer.py
 
 Markdown -> HTML -> PDF helpers for ICH M11-style protocol drafts.
 
