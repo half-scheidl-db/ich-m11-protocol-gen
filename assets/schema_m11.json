@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "required": ["protocols"],
   "properties": {
@@ -39,7 +40,6 @@
             "type": "string",
             "format": "date-time"
           },
-
           "ich_m11_context": {
             "type": "object",
             "required": [
@@ -71,9 +71,9 @@
               "finalisation_note": {
                 "type": "string"
               }
-            }
+            },
+            "additionalProperties": false
           },
-
           "source_data": {
             "type": "object",
             "required": [
@@ -109,9 +109,9 @@
                   "$ref": "#/$defs/source_record"
                 }
               }
-            }
+            },
+            "additionalProperties": false
           },
-
           "title_page": {
             "type": "object",
             "required": [
@@ -219,9 +219,9 @@
               "medical_expert_contact": {
                 "$ref": "#/$defs/protocol_field"
               }
-            }
+            },
+            "additionalProperties": false
           },
-
           "amendment_details": {
             "type": "object",
             "required": [
@@ -272,7 +272,8 @@
                   "substantial_impact_on_data_reliability": {
                     "$ref": "#/$defs/yes_no_explanation"
                   }
-                }
+                },
+                "additionalProperties": false
               },
               "overview_of_changes": {
                 "type": "array",
@@ -293,18 +294,19 @@
                     "section_number_and_name": {
                       "type": "string"
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
               },
               "prior_protocol_amendments": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/protocol_section"
+                  "$ref": "#/$defs/prior_protocol_amendment"
                 }
               }
-            }
+            },
+            "additionalProperties": false
           },
-
           "protocol_sections": {
             "type": "array",
             "minItems": 14,
@@ -312,19 +314,21 @@
               "$ref": "#/$defs/protocol_section"
             }
           },
-
           "appendices": {
             "type": "array",
             "items": {
               "$ref": "#/$defs/protocol_section"
             }
           },
-
           "abbreviations": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["abbreviation", "definition"],
+              "required": [
+                "abbreviation",
+                "definition",
+                "source_traceability"
+              ],
               "properties": {
                 "abbreviation": {
                   "type": "string"
@@ -335,10 +339,10 @@
                 "source_traceability": {
                   "$ref": "#/$defs/source_traceability"
                 }
-              }
+              },
+              "additionalProperties": false
             }
           },
-
           "references": {
             "type": "array",
             "items": {
@@ -370,10 +374,10 @@
                 "url_or_identifier": {
                   "type": ["string", "null"]
                 }
-              }
+              },
+              "additionalProperties": false
             }
           },
-
           "review_package": {
             "type": "object",
             "required": [
@@ -414,9 +418,9 @@
                   "$ref": "#/$defs/not_generated"
                 }
               }
-            }
+            },
+            "additionalProperties": false
           },
-
           "pdf_rendering": {
             "type": "object",
             "required": [
@@ -451,7 +455,8 @@
                     "before_section_id": {
                       "type": "string"
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
               },
               "tables": {
@@ -472,13 +477,14 @@
                   "type": "string"
                 }
               }
-            }
+            },
+            "additionalProperties": false
           }
-        }
+        },
+        "additionalProperties": false
       }
     }
   },
-
   "$defs": {
     "protocol_section": {
       "type": "object",
@@ -487,11 +493,12 @@
         "section_number",
         "section_title",
         "heading_level",
+        "parent_section_id",
+        "child_section_ids",
         "ich_m11_section_type",
         "content_status",
         "structured_content",
         "narrative_text",
-        "child_sections",
         "source_traceability",
         "review_required",
         "pdf_rendering_hints"
@@ -518,6 +525,15 @@
           "type": "integer",
           "minimum": 1,
           "maximum": 4
+        },
+        "parent_section_id": {
+          "type": ["string", "null"]
+        },
+        "child_section_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "ich_m11_section_type": {
           "type": "string",
@@ -593,16 +609,11 @@
                 "$ref": "#/$defs/renderable_figure"
               }
             }
-          }
+          },
+          "additionalProperties": false
         },
         "narrative_text": {
           "type": "string"
-        },
-        "child_sections": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/protocol_section"
-          }
         },
         "source_traceability": {
           "$ref": "#/$defs/source_traceability"
@@ -623,16 +634,20 @@
             },
             "page_orientation": {
               "type": "string",
-              "enum": ["Portrait", "Landscape"]
+              "enum": [
+                "Portrait",
+                "Landscape"
+              ]
             },
             "include_in_toc": {
               "type": "boolean"
             }
-          }
+          },
+          "additionalProperties": false
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "protocol_field": {
       "type": "object",
       "required": [
@@ -656,8 +671,6 @@
             "number",
             "integer",
             "boolean",
-            "array",
-            "object",
             "null"
           ]
         },
@@ -670,9 +683,9 @@
         "review_required": {
           "type": "boolean"
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "objective": {
       "type": "object",
       "required": [
@@ -727,9 +740,9 @@
         "review_required": {
           "type": "boolean"
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "estimand": {
       "type": "object",
       "required": [
@@ -777,7 +790,8 @@
               "strategy": {
                 "type": "string"
               }
-            }
+            },
+            "additionalProperties": false
           }
         },
         "source_traceability": {
@@ -786,9 +800,9 @@
         "review_required": {
           "type": "boolean"
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "intervention": {
       "type": "object",
       "required": [
@@ -858,9 +872,9 @@
         "review_required": {
           "type": "boolean"
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "schedule_activity": {
       "type": "object",
       "required": [
@@ -907,9 +921,9 @@
         "source_traceability": {
           "$ref": "#/$defs/source_traceability"
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "intervention_name": {
       "type": "object",
       "required": [
@@ -931,9 +945,9 @@
         "source_traceability": {
           "$ref": "#/$defs/source_traceability"
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "organisation": {
       "type": "object",
       "required": [
@@ -962,9 +976,9 @@
         "source_traceability": {
           "$ref": "#/$defs/source_traceability"
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "external_identifier": {
       "type": "object",
       "required": [
@@ -992,9 +1006,9 @@
         "source_traceability": {
           "$ref": "#/$defs/source_traceability"
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "yes_no_explanation": {
       "type": "object",
       "required": [
@@ -1006,7 +1020,12 @@
       "properties": {
         "answer": {
           "type": ["string", "null"],
-          "enum": ["Yes", "No", "Unknown", null]
+          "enum": [
+            "Yes",
+            "No",
+            "Unknown",
+            null
+          ]
         },
         "explanation": {
           "type": ["string", "null"]
@@ -1017,9 +1036,42 @@
         "review_required": {
           "type": "boolean"
         }
-      }
+      },
+      "additionalProperties": false
     },
-
+    "prior_protocol_amendment": {
+      "type": "object",
+      "required": [
+        "amendment_identifier",
+        "amendment_date",
+        "amendment_scope",
+        "summary",
+        "source_traceability",
+        "review_required"
+      ],
+      "properties": {
+        "amendment_identifier": {
+          "type": ["string", "null"]
+        },
+        "amendment_date": {
+          "type": ["string", "null"],
+          "format": "date"
+        },
+        "amendment_scope": {
+          "type": ["string", "null"]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "source_traceability": {
+          "$ref": "#/$defs/source_traceability"
+        },
+        "review_required": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
     "source_record": {
       "type": "object",
       "required": [
@@ -1039,24 +1091,28 @@
           "type": ["string", "null"]
         },
         "source_value": {
-          "type": ["string", "number", "boolean", "null"]
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "null"
+          ]
         },
         "controlled_terminology_reference": {
           "type": ["string", "null"]
         },
         "record_ref": {
-          "type": "string"
+          "type": ["string", "null"]
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "source_traceability": {
       "type": "array",
       "items": {
         "$ref": "#/$defs/source_record"
       }
     },
-
     "value_status": {
       "type": "string",
       "enum": [
@@ -1068,7 +1124,6 @@
         "Not Applicable"
       ]
     },
-
     "renderable_table": {
       "type": "object",
       "required": [
@@ -1109,9 +1164,9 @@
             }
           }
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "renderable_figure": {
       "type": "object",
       "required": [
@@ -1146,9 +1201,9 @@
         "image_uri": {
           "type": ["string", "null"]
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "review_finding": {
       "type": "object",
       "required": [
@@ -1161,7 +1216,11 @@
       "properties": {
         "severity": {
           "type": "string",
-          "enum": ["Info", "Warning", "Critical"]
+          "enum": [
+            "Info",
+            "Warning",
+            "Critical"
+          ]
         },
         "finding": {
           "type": "string"
@@ -1181,9 +1240,9 @@
         "recommendation": {
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "assumption": {
       "type": "object",
       "required": [
@@ -1208,14 +1267,18 @@
         },
         "risk": {
           "type": "string",
-          "enum": ["Low", "Medium", "High"]
+          "enum": [
+            "Low",
+            "Medium",
+            "High"
+          ]
         },
         "requires_confirmation": {
           "type": "boolean"
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "missing_information": {
       "type": "object",
       "required": [
@@ -1247,9 +1310,9 @@
             "Operational Metadata"
           ]
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "protocol_question": {
       "type": "object",
       "required": [
@@ -1270,11 +1333,15 @@
         },
         "priority": {
           "type": "string",
-          "enum": ["Low", "Medium", "High"]
+          "enum": [
+            "Low",
+            "Medium",
+            "High"
+          ]
         }
-      }
+      },
+      "additionalProperties": false
     },
-
     "not_generated": {
       "type": "object",
       "required": [
@@ -1301,7 +1368,9 @@
             "Not applicable to trial"
           ]
         }
-      }
+      },
+      "additionalProperties": false
     }
-  }
+  },
+  "additionalProperties": false
 }
