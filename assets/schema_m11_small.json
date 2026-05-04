@@ -2,196 +2,193 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "protocols"
+    "protocol"
   ],
   "properties": {
-    "protocols": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "document_id",
-          "document_type",
-          "created_at",
-          "ich_m11_context",
-          "title_page",
-          "protocol_sections",
-          "abbreviations",
-          "references"
-        ],
-        "properties": {
-          "document_id": {
-            "type": "string"
-          },
-          "document_type": {
-            "type": "string",
-            "enum": [
-              "ICH M11 Clinical Trial Protocol Draft",
-              "ICH M11 Protocol Synopsis Draft"
-            ]
-          },
-          "created_at": {
-            "type": "string"
-          },
-          "ich_m11_context": {
+    "protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_id",
+        "document_type",
+        "created_at",
+        "ich_m11_context",
+        "title_page",
+        "protocol_sections",
+        "abbreviations",
+        "references"
+      ],
+      "properties": {
+        "document_id": {
+          "type": "string"
+        },
+        "document_type": {
+          "type": "string",
+          "enum": [
+            "ICH M11 Clinical Trial Protocol Draft",
+            "ICH M11 Protocol Synopsis Draft"
+          ]
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "ich_m11_context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "standard_name",
+            "template_version",
+            "implementation_note"
+          ],
+          "properties": {
+            "standard_name": {
+              "type": "string"
+            },
+            "template_version": {
+              "type": "string"
+            },
+            "implementation_note": {
+              "type": "string"
+            }
+          }
+        },
+        "title_page": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "full_title",
+            "trial_acronym",
+            "sponsor_protocol_identifier",
+            "version_number",
+            "version_date",
+            "trial_phase",
+            "short_title",
+            "sponsor_name",
+            "therapeutic_area",
+            "indication"
+          ],
+          "properties": {
+            "full_title": {
+              "type": "string"
+            },
+            "trial_acronym": {
+              "type": "string"
+            },
+            "sponsor_protocol_identifier": {
+              "type": "string"
+            },
+            "version_number": {
+              "type": "string"
+            },
+            "version_date": {
+              "type": "string"
+            },
+            "trial_phase": {
+              "type": "string",
+              "enum": [
+                "Phase I",
+                "Phase II",
+                "Phase III",
+                "Phase IV",
+                "Phase I/II",
+                "Phase II/III"
+              ]
+            },
+            "short_title": {
+              "type": "string"
+            },
+            "sponsor_name": {
+              "type": "string"
+            },
+            "therapeutic_area": {
+              "type": "string"
+            },
+            "indication": {
+              "type": "string"
+            }
+          }
+        },
+        "protocol_sections": {
+          "type": "array",
+          "items": {
             "type": "object",
             "additionalProperties": false,
             "required": [
-              "standard_name",
-              "template_version",
-              "implementation_note"
+              "section_number",
+              "section_title",
+              "narrative_text",
+              "child_sections"
             ],
             "properties": {
-              "standard_name": {
+              "section_number": {
                 "type": "string"
               },
-              "template_version": {
+              "section_title": {
                 "type": "string"
               },
-              "implementation_note": {
-                "type": "string"
-              }
-            }
-          },
-          "title_page": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "full_title",
-              "trial_acronym",
-              "sponsor_protocol_identifier",
-              "version_number",
-              "version_date",
-              "trial_phase",
-              "short_title",
-              "sponsor_name",
-              "therapeutic_area",
-              "indication"
-            ],
-            "properties": {
-              "full_title": {
+              "narrative_text": {
                 "type": "string"
               },
-              "trial_acronym": {
-                "type": "string"
-              },
-              "sponsor_protocol_identifier": {
-                "type": "string"
-              },
-              "version_number": {
-                "type": "string"
-              },
-              "version_date": {
-                "type": "string"
-              },
-              "trial_phase": {
-                "type": "string",
-                "enum": [
-                  "Phase I",
-                  "Phase II",
-                  "Phase III",
-                  "Phase IV",
-                  "Phase I/II",
-                  "Phase II/III"
-                ]
-              },
-              "short_title": {
-                "type": "string"
-              },
-              "sponsor_name": {
-                "type": "string"
-              },
-              "therapeutic_area": {
-                "type": "string"
-              },
-              "indication": {
-                "type": "string"
-              }
-            }
-          },
-          "protocol_sections": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "section_number",
-                "section_title",
-                "narrative_text",
-                "child_sections"
-              ],
-              "properties": {
-                "section_number": {
-                  "type": "string"
-                },
-                "section_title": {
-                  "type": "string"
-                },
-                "narrative_text": {
-                  "type": "string"
-                },
-                "child_sections": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "required": [
-                      "section_number",
-                      "section_title",
-                      "narrative_text"
-                    ],
-                    "properties": {
-                      "section_number": {
-                        "type": "string"
-                      },
-                      "section_title": {
-                        "type": "string"
-                      },
-                      "narrative_text": {
-                        "type": "string"
-                      }
+              "child_sections": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "section_number",
+                    "section_title",
+                    "narrative_text"
+                  ],
+                  "properties": {
+                    "section_number": {
+                      "type": "string"
+                    },
+                    "section_title": {
+                      "type": "string"
+                    },
+                    "narrative_text": {
+                      "type": "string"
                     }
                   }
                 }
               }
             }
-          },
-          "abbreviations": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "abbreviation",
-                "definition"
-              ],
-              "properties": {
-                "abbreviation": {
-                  "type": "string"
-                },
-                "definition": {
-                  "type": "string"
-                }
+          }
+        },
+        "abbreviations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "abbreviation",
+              "definition"
+            ],
+            "properties": {
+              "abbreviation": {
+                "type": "string"
+              },
+              "definition": {
+                "type": "string"
               }
             }
-          },
-          "references": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "reference_id",
-                "citation_text"
-              ],
-              "properties": {
-                "reference_id": {
-                  "type": "string"
-                },
-                "citation_text": {
-                  "type": "string"
-                }
+          }
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "reference_id",
+              "citation_text"
+            ],
+            "properties": {
+              "reference_id": {
+                "type": "string"
+              },
+              "citation_text": {
+                "type": "string"
               }
             }
           }

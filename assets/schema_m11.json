@@ -1,13 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "required": ["protocols"],
+  "required": ["protocol"],
   "properties": {
-    "protocols": {
-      "type": "array",
-      "minItems": 1,
-      "maxItems": 10,
-      "items": {
+    "protocol": {
         "type": "object",
         "required": [
           "document_id",
@@ -309,7 +305,6 @@
           },
           "protocol_sections": {
             "type": "array",
-            "minItems": 14,
             "items": {
               "$ref": "#/$defs/protocol_section"
             }
@@ -441,7 +436,6 @@
               },
               "section_order": {
                 "type": "array",
-                "minItems": 1,
                 "items": {
                   "type": "string"
                 }
@@ -1371,6 +1365,4 @@
       },
       "additionalProperties": false
     }
-  },
-  "additionalProperties": false
-}
+  }

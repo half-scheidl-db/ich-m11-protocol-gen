@@ -1,0 +1,394 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol"],
+  "properties": {
+    "protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_id",
+        "document_type",
+        "created_at",
+        "ich_m11_standard",
+        "title_page",
+        "protocol_synopsis",
+        "trial_design",
+        "trial_population",
+        "investigational_products",
+        "protocol_sections",
+        "visits",
+        "review_items"
+      ],
+      "properties": {
+        "document_id": {
+          "type": "string"
+        },
+        "document_type": {
+          "type": "string",
+          "enum": [
+            "ICH M11 Clinical Trial Protocol Draft",
+            "ICH M11 Protocol Synopsis Draft"
+          ]
+        },
+        "created_at": {
+          "type": "string",
+          "description": "ISO 8601 date-time"
+        },
+        "ich_m11_standard": {
+          "type": "string",
+          "enum": ["ICH M11 Clinical Electronic Structured Harmonised Protocol"]
+        },
+        "title_page": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "full_title",
+            "short_title",
+            "sponsor_protocol_identifier",
+            "trial_phase",
+            "sponsor_name",
+            "therapeutic_area",
+            "indication",
+            "countries"
+          ],
+          "properties": {
+            "full_title": {
+              "type": "string",
+              "description": "Sourced from TS TSPARMCD=TITLE"
+            },
+            "short_title": {
+              "type": "string"
+            },
+            "sponsor_protocol_identifier": {
+              "type": "string"
+            },
+            "trial_phase": {
+              "type": "string",
+              "enum": [
+                "PHASE I TRIAL",
+                "PHASE I/PHASE II TRIAL",
+                "PHASE II TRIAL",
+                "PHASE II/PHASE III TRIAL",
+                "PHASE III TRIAL",
+                "PHASE IIIA TRIAL",
+                "PHASE IIIB TRIAL",
+                "PHASE IV TRIAL",
+                "NOT APPLICABLE"
+              ],
+              "description": "Sourced from TS TSPARMCD=TPHASE. CDISC CT codelist C66737."
+            },
+            "sponsor_name": {
+              "type": "string"
+            },
+            "therapeutic_area": {
+              "type": "string",
+              "description": "Sourced from TS TSPARMCD=THERAREA"
+            },
+            "indication": {
+              "type": "string",
+              "description": "Sourced from TS TSPARMCD=INDIC"
+            },
+            "countries": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Sourced from TS TSPARMCD=FCNTRY. ISO 3166 alpha-3 codes."
+            }
+          }
+        },
+        "protocol_synopsis": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "brief_summary",
+            "study_rationale",
+            "primary_objectives",
+            "secondary_objectives",
+            "study_design_summary",
+            "study_start_date",
+            "study_end_date",
+            "planned_or_actual",
+            "subjects_by_group"
+          ],
+          "properties": {
+            "brief_summary": {
+              "type": "string"
+            },
+            "study_rationale": {
+              "type": "string"
+            },
+            "primary_objectives": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "secondary_objectives": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "study_design_summary": {
+              "type": "string"
+            },
+            "study_start_date": {
+              "type": "string",
+              "description": "Sourced from TS TSPARMCD=SSTDTC. ISO 8601 date."
+            },
+            "study_end_date": {
+              "type": "string",
+              "description": "Sourced from TS TSPARMCD=SENDTC. ISO 8601 date."
+            },
+            "planned_or_actual": {
+              "type": "string",
+              "enum": ["Planned", "Actual"]
+            },
+            "subjects_by_group": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["group_name", "count"],
+                "properties": {
+                  "group_name": {
+                    "type": "string",
+                    "description": "Sourced from TS TSPARMCD=ACTSUB TSGRPID e.g. SCREENED, TREATED, COMPLETED."
+                  },
+                  "count": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "trial_design": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "study_type",
+            "number_of_arms",
+            "arm_descriptions",
+            "blinding",
+            "randomization",
+            "control_type"
+          ],
+          "properties": {
+            "study_type": {
+              "type": "string",
+              "description": "Sourced from TS TSPARMCD=STYPE"
+            },
+            "number_of_arms": {
+              "type": "integer",
+              "description": "Sourced from TS TSPARMCD=NARMS"
+            },
+            "arm_descriptions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["arm_name", "arm_description", "intervention"],
+                "properties": {
+                  "arm_name": {
+                    "type": "string"
+                  },
+                  "arm_description": {
+                    "type": "string"
+                  },
+                  "intervention": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "blinding": {
+              "type": "string",
+              "enum": [
+                "Open-Label",
+                "Single-Blind",
+                "Double-Blind",
+                "Triple-Blind",
+                "Not Applicable",
+                "Unknown"
+              ]
+            },
+            "randomization": {
+              "type": "string"
+            },
+            "control_type": {
+              "type": "string",
+              "enum": [
+                "Placebo",
+                "Active Comparator",
+                "Dose-Comparison",
+                "No Treatment",
+                "Not Applicable",
+                "Unknown"
+              ]
+            }
+          }
+        },
+        "trial_population": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "planned_minimum_age",
+            "planned_maximum_age",
+            "sex_of_participants",
+            "key_inclusion_summary",
+            "key_exclusion_summary"
+          ],
+          "properties": {
+            "planned_minimum_age": {
+              "type": "string",
+              "description": "Sourced from TS TSPARMCD=AGEMIN"
+            },
+            "planned_maximum_age": {
+              "type": "string",
+              "description": "Sourced from TS TSPARMCD=AGEMAX"
+            },
+            "sex_of_participants": {
+              "type": "string",
+              "enum": ["MALE", "FEMALE", "BOTH"],
+              "description": "Sourced from TS TSPARMCD=SEXPOP. CDISC CT codelist C66731."
+            },
+            "key_inclusion_summary": {
+              "type": "string",
+              "description": "Placeholder text. TS does not contain eligibility criteria."
+            },
+            "key_exclusion_summary": {
+              "type": "string",
+              "description": "Placeholder text. TS does not contain eligibility criteria."
+            }
+          }
+        },
+        "investigational_products": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "product_name",
+              "dosage_form",
+              "route_of_administration",
+              "dose_description"
+            ],
+            "properties": {
+              "product_name": {
+                "type": "string",
+                "description": "Sourced from TS TSPARMCD=TRT"
+              },
+              "dosage_form": {
+                "type": "string"
+              },
+              "route_of_administration": {
+                "type": "string"
+              },
+              "dose_description": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "protocol_sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "section_number",
+              "section_title",
+              "content_status",
+              "narrative_text",
+              "source_domain"
+            ],
+            "properties": {
+              "section_number": {
+                "type": "string",
+                "description": "Hierarchical section numbering e.g. 1, 1.1, 1.2, 2, 2.1"
+              },
+              "section_title": {
+                "type": "string"
+              },
+              "content_status": {
+                "type": "string",
+                "enum": [
+                  "Generated",
+                  "Partially Generated",
+                  "Placeholder Only",
+                  "Not Generated"
+                ]
+              },
+              "narrative_text": {
+                "type": "string"
+              },
+              "source_domain": {
+                "type": "string",
+                "enum": ["SDTM TS", "SDTM TV", "None"],
+                "description": "Primary source domain for this section content."
+              }
+            }
+          }
+        },
+        "visits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "visit_number",
+              "visit_name",
+              "planned_study_day",
+              "arm",
+              "activities_summary"
+            ],
+            "properties": {
+              "visit_number": {
+                "type": "number",
+                "description": "Sourced from TV VISITNUM"
+              },
+              "visit_name": {
+                "type": "string",
+                "description": "Sourced from TV VISIT"
+              },
+              "planned_study_day": {
+                "type": "integer",
+                "description": "Sourced from TV VISITDY"
+              },
+              "arm": {
+                "type": "string",
+                "description": "Sourced from TV ARM. Empty string if arm-independent."
+              },
+              "activities_summary": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "review_items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["item_type", "section", "text"],
+            "properties": {
+              "item_type": {
+                "type": "string",
+                "enum": ["missing_information", "assumption", "question_for_team"]
+              },
+              "section": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
