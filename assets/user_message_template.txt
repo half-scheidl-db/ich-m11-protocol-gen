@@ -1,0 +1,35 @@
+Generate JSON data for one single fictional ICH M11-style interventional clinical trial protocol draft for the supplied study.
+
+Use the supplied source blocks:
+- Structured source context from a subset of SDTM
+- Human-authored Fact Sheet, when provided
+
+Structured source context:
+{study_context_json}
+
+Fact Sheet:
+{study_fact_sheet}
+
+Source usage requirements:
+- Apply the source-priority and conflict-resolution rules from the system message.
+- Use the Fact Sheet as the primary source for visible study facts when it is provided.
+- Use SDTM TS to supplement trial-level metadata not available in the Fact Sheet.
+- Use SDTM TV to supplement visit schedule, visit sequence, visit names, epochs, and visit timing.
+- If the Fact Sheet conflicts with TS or TV, use the Fact Sheet value in the protocol text and add the lower-priority conflicting value to review_items.
+- Do not treat objectives, endpoints, inclusion criteria, or exclusion criteria as unsupported when they are present in the Fact Sheet.
+- Preserve demo quality by generating plausible operational, safety, statistical, dosing, governance, and data-management detail where source information is incomplete.
+- Clearly mark generated or inferred content using the available schema fields and the remark "AI generated".
+
+Content depth and quality expectations (CRITICAL — the output is for a live demo):
+- Each protocol_sections narrative_text MUST be at least 3-5 full sentences, ideally 150-400 words. Write in professional clinical protocol prose. Do NOT write single-sentence summaries.
+- Generate AT LEAST 12-15 protocol sections covering: Introduction, Background and Rationale, Trial Schema, Schedule of Activities, Description of Trial Design, Start/End of Trial, Statistical Considerations, Safety Reporting, Dosing and Administration, Data Management, Regulatory and Ethical Considerations, Trial Governance, Quality Assurance, and Trial Assessments and Procedures.
+- primary_objectives: use Fact Sheet objectives when provided; otherwise generate 2-3 detailed objectives with measurable endpoints.
+- secondary_objectives: use Fact Sheet objectives when provided; otherwise generate 3-4 objectives covering safety, tolerability, pharmacokinetics, or secondary efficacy as appropriate.
+- endpoints: use Fact Sheet endpoints when provided; otherwise generate clinically plausible endpoints aligned to the objectives.
+- key_inclusion_summary: use Fact Sheet inclusion criteria when provided; otherwise generate 6-8 semicolon-separated specific eligibility criteria.
+- key_exclusion_summary: use Fact Sheet exclusion criteria when provided; otherwise generate 6-8 semicolon-separated specific exclusion criteria.
+- visits activities_summary: provide 2-3 sentences per visit describing specific assessments, procedures, and samples collected, using TV visit timing where available.
+- investigational_products dose_description: include dose, frequency, duration, and titration schedule if source information provides it. If unavailable, generate a plausible demo-ready description and mark it "AI generated".
+- review_items: generate 5-7 items covering source conflicts, missing information, assumptions, AI-generated content, and questions for the protocol team.
+- Add missing_information and questions_for_protocol_team for protocol-critical gaps.
+- Generate safety, statistical, dosing, operational, eligibility, and governance details with clinical depth, but do not override higher-priority source content.

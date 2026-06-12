@@ -1,6 +1,40 @@
   @page {
       size: A4;
-      margin: 25mm 20mm 25mm 20mm;
+      margin: 25mm 20mm 30mm 20mm;
+
+      @bottom-center {
+          content: "Page " counter(page) " of " counter(pages);
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 8.5pt;
+          color: #666666;
+      }
+
+      @bottom-left {
+          content: "ICH M11 Protocol Draft — CONFIDENTIAL";
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 7.5pt;
+          color: #999999;
+      }
+
+      @bottom-right {
+          content: string(study-id);
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 7.5pt;
+          color: #999999;
+      }
+
+      border-top: none;
+  }
+
+  @page :first {
+      @bottom-left { content: none; }
+      @bottom-center { content: none; }
+      @bottom-right { content: none; }
+  }
+
+  .study-id-string {
+      string-set: study-id content();
+      display: none;
   }
 
   body {
@@ -91,6 +125,31 @@ h5 {
       font-weight: bold;
   }
 
+  /* ---- Title Banner ---- */
+  .title-banner {
+      background: linear-gradient(135deg, #1B3A5C 0%, #2E6B9E 100%);
+      color: white;
+      padding: 24pt 20pt 18pt 20pt;
+      margin: -25mm -20mm 18pt -20mm;
+      padding-top: 30mm;
+      padding-left: 20mm;
+      padding-right: 20mm;
+  }
+
+  .title-banner h1 {
+      color: white;
+      font-size: 18pt;
+      margin-bottom: 8pt;
+      border-bottom: none;
+  }
+
+  .title-meta {
+      color: #C8DDF0;
+      font-size: 9pt;
+      font-family: Arial, Helvetica, sans-serif;
+      margin-bottom: 3pt;
+  }
+
   .traceability {
       color: #666666;
       font-size: 8.5pt;
@@ -101,6 +160,75 @@ h5 {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 9.5pt;
       color: #333333;
+  }
+
+  /* ---- Section metadata badges ---- */
+  .section-meta {
+      margin: 4pt 0 6pt 0;
+  }
+
+  .status-badge {
+      display: inline-block;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8pt;
+      font-weight: bold;
+      padding: 2pt 6pt;
+      border-radius: 3pt;
+      margin-right: 6pt;
+      text-transform: uppercase;
+  }
+
+  .status-generated {
+      background: #E6F4EA;
+      color: #1E7E34;
+  }
+
+  .status-partially-generated {
+      background: #FFF3E0;
+      color: #E65100;
+  }
+
+  .status-placeholder-only {
+      background: #FBE9E7;
+      color: #BF360C;
+  }
+
+  .status-not-generated {
+      background: #ECEFF1;
+      color: #546E7A;
+  }
+
+  .source-badge {
+      display: inline-block;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8pt;
+      padding: 2pt 6pt;
+      border-radius: 3pt;
+  }
+
+  .source-sdtm-ts {
+      background: #E3F2FD;
+      color: #1565C0;
+  }
+
+  .source-sdtm-tv {
+      background: #E0F2F1;
+      color: #00695C;
+  }
+
+  /* ---- Source-domain colored left borders ---- */
+  .narrative {
+      margin: 4pt 0 10pt 0;
+  }
+
+  .narrative-ts {
+      border-left: 3px solid #1565C0;
+      padding-left: 10pt;
+  }
+
+  .narrative-tv {
+      border-left: 3px solid #00695C;
+      padding-left: 10pt;
   }
 
   .review-package {
@@ -116,4 +244,51 @@ h5 {
 
   .page-break {
       break-before: page;
+  }
+
+  .visit-schedule-table td:first-child {
+      width: 8%;
+      text-align: center;
+  }
+
+  .visit-schedule-table td:nth-child(3) {
+      width: 10%;
+      text-align: center;
+  }
+
+  .review-items {
+      border-top: 2px solid #B00020;
+      margin-top: 18pt;
+      padding-top: 10pt;
+  }
+
+  .review-item {
+      margin: 6pt 0;
+      padding: 6pt 8pt;
+      background: #FFF8F8;
+      border-left: 3px solid #B00020;
+      font-size: 10pt;
+  }
+
+  .review-type {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9pt;
+      color: #B00020;
+      font-weight: bold;
+  }
+
+  /* ---- AI Generated badge ---- */
+  .ai-generated-badge {
+      display: inline-block;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 7.5pt;
+      font-weight: 600;
+      color: #6A1B9A;
+      background: #F3E5F5;
+      border: 1px solid #CE93D8;
+      border-radius: 3pt;
+      padding: 1pt 5pt;
+      margin-left: 4pt;
+      vertical-align: middle;
+      letter-spacing: 0.3pt;
   }

@@ -33,10 +33,25 @@ def render_markdown_fragment(text: str) -> str:
 
     import markdown
 
-    return markdown.markdown(
+    rendered = markdown.markdown(
         text,
         extensions=["extra", "sane_lists"]
     )
+
+    # Style "AI generated" remarks with an inline SVG icon badge
+    ai_icon_svg = (
+        '<svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" '
+        'viewBox="0 0 24 24" fill="#6A1B9A" style="vertical-align: middle; margin-right: 2pt;">'
+        '<path d="M12 2L14.09 8.26L20 9.27L15.55 13.97L16.91 20L12 16.9L7.09 20L8.45 13.97'
+        'L4 9.27L9.91 8.26L12 2Z"/>'
+        '</svg>'
+    )
+    rendered = rendered.replace(
+        "AI generated",
+        f'<span class="ai-generated-badge">{ai_icon_svg} AI Generated</span>'
+    )
+
+    return rendered
 
 def semicolon_text_to_html_bullets(text: str) -> str:
     """
@@ -90,12 +105,19 @@ def protocol_to_html_body(protocol: dict) -> str:
     created_at = protocol.get("created_at", "N/A")
     ich_m11_standard = protocol.get("ich_m11_standard", "N/A")
 
+    # Hidden element for CSS string-set (used in page footer)
+    sponsor_id = title_page.get("sponsor_protocol_identifier", "")
+    parts.append(f'<span class="study-id-string">{esc(sponsor_id)}</span>')
+
+    # Colored title banner
+    parts.append('<div class="title-banner">')
     parts.append(f"<h1>{esc(full_title)}</h1>")
     parts.append(
-        f'<div class="traceability">Document ID: {esc(document_id)} · '
+        f'<div class="title-meta">Document ID: {esc(document_id)} · '
         f'Type: {esc(document_type)} · Created: {esc(created_at)}</div>'
     )
-    parts.append(f'<div class="traceability">Standard: {esc(ich_m11_standard)}</div>')
+    parts.append(f'<div class="title-meta">Standard: {esc(ich_m11_standard)}</div>')
+    parts.append('</div>')
 
     # Title Page
     parts.append("<h2>Title Page</h2>")
@@ -135,6 +157,10 @@ def protocol_to_html_body(protocol: dict) -> str:
             parts.append("<h3>Study Rationale</h3>")
             parts.append(f"<p>{esc(synopsis['study_rationale'])}</p>")
 
+        if synopsis.get("study_design_summary"):
+            parts.append("<h3>Study Design Summary</h3>")
+            parts.append(f"<p>{esc(synopsis['study_design_summary'])}</p>")
+
         primary = synopsis.get("primary_objectives", [])
         if primary:
             parts.append("<h3>Primary Objectives</h3>")
@@ -150,6 +176,31 @@ def protocol_to_html_body(protocol: dict) -> str:
             for obj in secondary:
                 parts.append(f"<li>{esc(obj)}</li>")
             parts.append("</ul>")
+
+        # Study dates
+        start_date = synopsis.get("study_start_date")
+        end_date = synopsis.get("study_end_date")
+        planned_actual = synopsis.get("planned_or_actual", "")
+        if start_date or end_date:
+            parts.append("<h3>Study Timeline</h3>")
+            parts.append("<ul>")
+            if start_date:
+                parts.append(f"<li><strong>Study start date:</strong> {esc(start_date)}</li>")
+            if end_date:
+                parts.append(f"<li><strong>Study end date:</strong> {esc(end_date)}</li>")
+            if planned_actual:
+                parts.append(f"<li><strong>Status:</strong> {esc(planned_actual)}</li>")
+            parts.append("</ul>")
+
+        # Subjects by group
+        subjects = synopsis.get("subjects_by_group", [])
+        if subjects:
+            parts.append("<h3>Number of Subjects</h3>")
+            subj_rows = [
+                [s.get("group_name", "N/A"), str(s.get("count", "N/A"))]
+                for s in subjects
+            ]
+            parts.append(rows_to_table(["Group", "Count"], subj_rows))
 
     # Trial Design
     design = protocol.get("trial_design", {})
