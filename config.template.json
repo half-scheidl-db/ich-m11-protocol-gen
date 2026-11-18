@@ -1,0 +1,13 @@
+{
+  "_comment": "Copy to config.json (git-ignored) and fill in. study_ids/n_protocols: null = all studies.",
+  "catalog_name": "<catalog>",
+  "schema_name": "<schema>",
+  "volume_name": "ich_m11_protocols",
+  "sdtm_schema": "<catalog>.<sdtm_schema>",
+  "sdtm_ts_table": "ts",
+  "sdtm_tv_table": "tv",
+  "sdtm_ti_table": "ti",
+  "study_ids": null,
+  "model": "system.ai.gpt-5-5",
+  "n_protocols": null
+}
