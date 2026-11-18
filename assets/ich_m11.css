@@ -1,6 +1,30 @@
   @page {
       size: A4;
       margin: 25mm 20mm 25mm 20mm;
+
+      @bottom-center {
+          content: "Page " counter(page) " of " counter(pages);
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 8pt;
+          color: #999999;
+      }
+
+      @top-right {
+          content: "CONFIDENTIAL";
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 7.5pt;
+          color: #B00020;
+          letter-spacing: 1pt;
+      }
+  }
+
+  @page :first {
+      @bottom-center { content: none; }
+      @top-right { content: none; }
+  }
+
+  @page landscape {
+      size: A4 landscape;
   }
 
   body {
@@ -10,6 +34,52 @@
       color: #111111;
       background: white;
   }
+
+  /* ---- Cover / Title page ---- */
+
+  .cover-page {
+      text-align: center;
+      padding-top: 80pt;
+      page-break-after: always;
+  }
+
+  .cover-page .confidentiality {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9pt;
+      color: #B00020;
+      text-transform: uppercase;
+      letter-spacing: 1.5pt;
+      margin-bottom: 48pt;
+  }
+
+  .cover-page .cover-title {
+      font-size: 20pt;
+      font-weight: bold;
+      line-height: 1.4;
+      margin-bottom: 12pt;
+  }
+
+  .cover-page .cover-subtitle {
+      font-size: 13pt;
+      color: #444444;
+      margin-bottom: 48pt;
+  }
+
+  .cover-page .cover-meta {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10pt;
+      color: #333333;
+      line-height: 1.8;
+  }
+
+  .cover-page .cover-meta strong {
+      display: inline-block;
+      width: 180pt;
+      text-align: right;
+      margin-right: 12pt;
+  }
+
+  /* ---- Headings ---- */
 
   h1 {
       font-size: 18pt;
@@ -49,6 +119,8 @@
       margin: 6pt 0;
   }
 
+  /* ---- Tables ---- */
+
   table {
       width: 100%;
       border-collapse: collapse;
@@ -74,6 +146,8 @@
       font-weight: bold;
       background: #F2F2F2;
   }
+
+  /* ---- Status classes ---- */
 
   .placeholder {
       background: #EDEDED;
@@ -103,6 +177,8 @@
       color: #333333;
   }
 
+  /* ---- Review package ---- */
+
   .review-package {
       border-top: 2px solid #B00020;
       margin-top: 24pt;
@@ -114,6 +190,37 @@
       color: #B00020;
   }
 
+  /* ---- Page break helpers ---- */
+
   .page-break {
       break-before: page;
+  }
+
+  .landscape-table {
+      page: landscape;
+      break-before: page;
+      break-after: page;
+  }
+
+  /* ---- Table of Contents ---- */
+
+  .toc {
+      page-break-after: always;
+  }
+
+  .toc a {
+      text-decoration: none;
+      color: #111111;
+  }
+
+  .toc li {
+      list-style: none;
+      margin: 4pt 0;
+  }
+
+  /* ---- Abbreviations table ---- */
+
+  .abbreviations-table td:first-child {
+      width: 20%;
+      font-weight: bold;
   }
